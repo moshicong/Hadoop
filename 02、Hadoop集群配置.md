@@ -49,6 +49,7 @@ rsync 和 scp 区别: 用 rsync 做文件的复制要比 scp 的速度快，rsyn
 
 scp 是把所有文件都复制过去
 
+
 查看 rsync 使用说明 
 
 ```
@@ -78,6 +79,7 @@ rsync -rvl $pdir/$fname $user@hadoop$host:$pdir
 ```
 rsync -rvl /opt/tmp root@hadoop103:/opt/
 ```
+
 
 #### 集群分发脚本 xsync
 
@@ -416,10 +418,14 @@ restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
 
 修改 2，也就是给以下三行加上注释
 
+```
 server 0.centos.pool.ntp.org iburst 
 server 1.centos.pool.ntp.org iburst 
 server 2.centos.pool.ntp.org iburst 
-server 3.centos.pool.ntp.org iburst 为:
+server 3.centos.pool.ntp.org iburst 
+```
+
+为:
 
 ```
 #server 0.centos.pool.ntp.org iburst 
@@ -428,7 +434,7 @@ server 3.centos.pool.ntp.org iburst 为:
 #server 3.centos.pool.ntp.org iburst
 ```
 
-添加 3
+添加:
 
 ```
 server 127.127.1.0
@@ -441,7 +447,9 @@ vim /etc/sysconfig/ntpd
 
 增加内容如下：
 
+```
 SYNC_HWCLOCK=yes
+```
 
 查看 ntpd 状态：
 
