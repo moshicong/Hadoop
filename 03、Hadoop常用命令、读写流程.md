@@ -1,32 +1,32 @@
 #### HDFS 产生背景
 
-随着数据量越来越大，在一个操作系统管辖的范围内存不下了，那么就分配到更多的操作，系统管理的磁盘中，但是不方便管理和维护，迫切需要一种系统来管理多台机器上的文件， 这就是分布式文件管理系统。HDFS 只是分布式文件管理系统中的一种。
+随着数据量越来越大，在一个操作系统管辖的范围内存不下了，那么就分配到更多的操作，系统管理的磁盘中，但是不方便管理和维护，迫切需要一种系统来管理多台机器上的文件， 这就是分布式文件管理系统。
+
+HDFS 只是分布式文件管理系统中的一种。
 
 
 #### HDFS 概念
 
-HDFS，它是一个文件系统，用于存储文件，通过目录树来定位文件;其次，它是分布 式的，由很多服务器联合起来实现其功能，集群中的服务器有各自的角色。
-HDFS 的设计适合一次写入，多次读出的场景，且不支持文件的修改。适合用来做数据 分析，并不适合用来做网盘应用。
+HDFS，它是一个文件系统，用于存储文件，通过目录树来定位文件，它是分布式的，由很多服务器联合起来实现其功能，集群中的服务器有各自的角色。
+
+HDFS 的设计适合一次写入，多次读出的场景，且不支持文件的修改，适合用来做数据分析，并不适合用来做网盘应用。
 
 
 #### HDFS 优点
 
 1、高容错性 
 
-数据自动保存多个副本，它通过增加副本的形式，提高容错性 
-
-某一个副本丢失以后，它可以自动恢复
+数据自动保存多个副本，它通过增加副本的形式，提高容错性，某一个副本丢失以后，它可以自动恢复
 
 2、适合大数据处理
 
 数据规模: 能够处理数据规模达到 GB、TB、甚至 PB 级别的数据
+
 文件规模: 能够处理百万规模以上的文件数量，数量相当之大
 
 3、流式数据访问
 
-一次写入，多次读取，不能修改，只能追加
-
-它能保证数据的一致性
+一次写入，多次读取，不能修改，只能追加，它能保证数据的一致性
 
 4、可构建在廉价机器上，通过多副本机制，提高可靠性
 
@@ -52,29 +52,41 @@ HDFS 的设计适合一次写入，多次读出的场景，且不支持文件的
 
 这种架构主要由四个部分组成，分别为 HDFS Client、NameNode、DataNode 和 Secondary NameNode
 
-1、Client:就是客户端
+1、Client :就是客户端
 
 1）文件切分，文件上传 HDFS 的时候，Client 将文件切分成一个一个的 Block，然后进行存储
-2）与 NameNode 交互，获取文件的位置信息
-3）与 DataNode 交互，读取或者写入数据
-4）Client 提供一些命令来管理 HDFS，比如启动或者关闭 HDFS。 (5)Client 可以通过一些命令来访问 HDFS
 
-2、NameNode:就是 master，它是一个主管、管理者
+2）与 NameNode 交互，获取文件的位置信息
+
+3）与 DataNode 交互，读取或者写入数据
+
+4）Client 提供一些命令来管理 HDFS，比如启动或者关闭 HDFS
+
+5）Client 可以通过一些命令来访问 HDFS
+
+2、NameNode :就是 master，它是一个主管、管理者
 
 1）管理 HDFS 的名称空间
+
 2）管理数据块(Block)映射信息 
+
 3）配置副本策略 
+
 4）处理客户端读写请求
 
-3、DataNode:就是 Slave，NameNode 下达命令，DataNode 执行实际的操作
+3、DataNode :就是 Slave，NameNode 下达命令，DataNode 执行实际的操作
 
 1）存储实际的数据块
+
 2）执行数据块的读/写操作
 
-4、Secondary NameNode:并非 NameNode 的热备，当 NameNode 挂掉的时候，它并不能马上替换 NameNode 并提供服务
+4、Secondary NameNode :并非 NameNode 的热备，当 NameNode 挂掉的时候，它并不能马上替换 NameNode 并提供服务
 
 1）辅助 NameNode，分担其工作量
-2）定期合并 Fsimage 和 Edits，并推送给 NameNode。 (3)在紧急情况下，可辅助恢复 NameNode
+
+2）定期合并 Fsimage 和 Edits，并推送给 NameNode
+
+3）在紧急情况下，可辅助恢复 NameNode
 
 
 #### HDFS 文件块大小
@@ -127,7 +139,7 @@ hadoop fs -appendToFile test1.txt /user/test/test.txt
 
 hadoop fs -tail /user/test/test.txt
 
-9、-chgrp 、-chmod、-chown:linux 文件系统中的用法一样，修改文件所属权限
+9、-chgrp 、-chmod、-chown :linux 文件系统中的用法一样，修改文件所属权限
 
 hadoop fs -chmod 666 /user/test/test.txt
 
@@ -145,11 +157,11 @@ hadoop fs -copyToLocal /user/test/test.txt ./test.txt
 
 hadoop fs -cp /user/test/test.txt /test1.txt
 
-13、-mv:在 hdfs 目录中移动文件
+13、-mv :在 hdfs 目录中移动文件
 
 hadoop fs -mv /test.txt /user/test/
 
-14、-get:等同于 copyToLocal，就是从 hdfs 下载文件到本地
+14、-get :等同于 copyToLocal，就是从 hdfs 下载文件到本地
 
 hadoop fs -get /user/test/test.txt ./
 
@@ -157,7 +169,7 @@ hadoop fs -get /user/test/test.txt ./
 
 hadoop fs -getmerge /user/test/* ./all.txt
 
-16、-put:等同于 copyFromLocal
+16、-put :等同于 copyFromLocal
 
 hadoop fs -put ./all.txt /user/test/
 
@@ -223,7 +235,7 @@ System.out.println("over");
 }
 ```
 
-测试参数优先级:
+参数优先级:
 
 客户端代码中设置的值 > classpath 下的用户自定义配置文件 > 服务器的默认配置
 
